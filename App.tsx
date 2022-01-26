@@ -67,9 +67,9 @@ const Product: React.FC<productProps> = ({ name, cost, image, setNum, setCost })
     <View style = {styles.productBox}>
       <View style={styles.previewBox}>
         <View style = {styles.imageBox}>
-          <Image style={styles.image} source={require('./Images/download.jpg')}/>
+          <Image style={styles.image} source={{uri: img}}/>
         </View>
-        <Text style = {styles.productTitle}>{name}({count})</Text>
+        <Text style = {styles.productTitle}>{name} ({count})</Text>
       </View>
       <View style={{flexDirection: 'row'}}>
         <Pressable style={styles.productDecreaseButton} onPress={productDecrease}>
@@ -107,24 +107,24 @@ const MainScreen: React.FC<MainScreenProps> = ({navigation}) => {
     <ScrollView style = {styles.mainPage}>
       <View>
       <View style = {{flexDirection: 'row'}}>
-        <Product name='Product 1' cost={50} image='./Images/download.jpg' setNum={setNum} setCost = {setCost} />
-        <Product name='Product 2' cost={100} image='./Images/download.jpg' setNum={setNum} setCost = {setCost}/>
+        <Product name='RAZE' cost={50} image='https://www.nme.com/wp-content/uploads/2020/07/072220-Raze-Valorant-Riot-Games.jpg' setNum={setNum} setCost = {setCost} />
+        <Product name='CYPHER' cost={100} image='https://cdn1.dotesports.com/wp-content/uploads/2021/01/22161816/VALORANT_Cypher_Dark-scaled.jpg' setNum={setNum} setCost = {setCost}/>
       </View>
       <View style = {{flexDirection: 'row'}}>
-        <Product name='Product 3' cost={150} image='./Images/download.jpg' setNum={setNum} setCost = {setCost}/>
-        <Product name='Product 4' cost={200} image='./Images/download.jpg' setNum={setNum} setCost = {setCost} />
+        <Product name='OMEN' cost={150} image='https://cdn1.dotesports.com/wp-content/uploads/2021/01/22161358/VALORANT_Omen_Dark-scaled.jpg' setNum={setNum} setCost = {setCost}/>
+        <Product name='NEON' cost={200} image='https://cdn.talkesport.com/wp-content/uploads/VALORA1.png' setNum={setNum} setCost = {setCost} />
       </View>
       <View style = {{flexDirection: 'row'}}>
-        <Product name='Product 5' cost={250} image='./Images/download.jpg' setNum={setNum} setCost = {setCost} />
-        <Product name='Product 6' cost={300} image='./Images/download.jpg' setNum={setNum} setCost = {setCost} />
+        <Product name='CHAMBER' cost={250} image='https://cdn1.dotesports.com/wp-content/uploads/2021/10/01040143/ezgif-3-ad7ee9114111.jpg' setNum={setNum} setCost = {setCost} />
+        <Product name='ASTRA' cost={300} image='https://cdn1.dotesports.com/wp-content/uploads/2021/02/26080227/Astra_Wallpapers_Blue1-scaled.jpg' setNum={setNum} setCost = {setCost} />
       </View>
       <View style = {{flexDirection: 'row'}}>
-        <Product name='Product 7' cost={350} image='./Images/download.jpg' setNum={setNum} setCost = {setCost} />
-        <Product name='Product 8' cost={400} image='./Images/download.jpg' setNum={setNum} setCost = {setCost} />
+        <Product name='VIPER' cost={350} image='https://cdn1.dotesports.com/wp-content/uploads/2021/03/11142935/VALORANT_Viper_Dark-scaled.jpg' setNum={setNum} setCost = {setCost} />
+        <Product name='BRIMSTONE' cost={400} image='https://staticg.sportskeeda.com/editor/2020/09/3bd84-16001841344420-800.jpg' setNum={setNum} setCost = {setCost} />
       </View>
       <View style = {{flexDirection: 'row'}}>
-        <Product name='Product 9' cost={450} image='./Images/download.jpg' setNum={setNum} setCost = {setCost} />
-        <Product name='Product 10' cost={500} image='./Images/download.jpg' setNum={setNum} setCost = {setCost} />
+        <Product name='KAYO' cost={450} image='https://wallpapercave.com/wp/wp9452970.png' setNum={setNum} setCost = {setCost} />
+        <Product name='KILLJOY' cost={500} image='https://cdn1.dotesports.com/wp-content/uploads/2021/01/22161909/KillJoy_Wallpapers_blue2-scaled.jpg' setNum={setNum} setCost = {setCost} />
       </View>
       <Pressable style={styles.mainButton} onPress={checkout}>
         <Text style = {styles.checkOutText}>Number Of Items = {' '+num} </Text>
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10 ,
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
-    backgroundColor: '#F0F4C3'
+    backgroundColor: '#80CBC4'
   },
   productTitle: {
     textAlign: 'center', 
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
   },
   productCost: {
     textAlign: 'center', 
-    marginLeft: 30, 
+    marginLeft: 20, 
     color: 'black', 
     fontWeight: 'bold',
     fontSize: 24,
@@ -261,17 +261,17 @@ const styles = StyleSheet.create({
   productIncreaseButton: {
     backgroundColor: 'green', 
     borderWidth: 1,  
-    borderRadius: 10,
-    width: 20, 
+    borderRadius: 100,
+    width: 30, 
     marginTop: 5,
-    marginLeft: 135,
+    marginLeft: 125,
     position: 'absolute'
   },
   productDecreaseButton: {
     backgroundColor: '#B71C1C', 
     borderWidth: 1,  
-    borderRadius: 10,
-    width: 20, 
+    borderRadius: 100,
+    width: 30, 
     marginTop: 5,
     marginLeft: 5,
   },
