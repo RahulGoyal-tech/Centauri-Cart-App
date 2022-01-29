@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, createContext, useContext} from 'react';
 import {
   Text,
   View,
@@ -15,16 +15,21 @@ import {
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
+const UserContext = createContext({
+  num: 0,
+  cost: 0,
+  setNum: function () {},
+  setCost: function () {},
+});
 
 interface CheckoutProps {
   navigation: NavigationProp<ParamListBase>;
-  route: any;
 }
 
-const Checkout: React.FC<CheckoutProps> = ({route}) => {
-  console.log(route.params);
-  let {number} = route.params;
-  let {amount} = route.params;
+const Checkout: React.FC<CheckoutProps> = () => {
+  const data = useContext(UserContext);
+  const number = data.num;
+  const amount = data.cost;
 
   return (
     <ScrollView style={styles.mainPage}>
@@ -113,18 +118,15 @@ const Product: React.FC<productProps> = ({
 
 interface MainScreenProps {
   navigation: NavigationProp<ParamListBase>;
-  route: any;
 }
 
 const MainScreen: React.FC<MainScreenProps> = ({navigation}) => {
-  const [num, setNum] = useState<number>(0);
-  const [cost, setCost] = useState<number>(0);
+  const data = useContext(UserContext);
+  const num = data.num;
+  const cost = data.cost;
 
   const checkout = () => {
-    navigation.navigate('MONEY', {
-      number: num,
-      amount: cost,
-    });
+    navigation.navigate('MONEY');
   };
 
   return (
@@ -135,15 +137,15 @@ const MainScreen: React.FC<MainScreenProps> = ({navigation}) => {
             name="RAZE"
             cost={50}
             image="https://www.nme.com/wp-content/uploads/2020/07/072220-Raze-Valorant-Riot-Games.jpg"
-            setNum={setNum}
-            setCost={setCost}
+            setNum={data.setNum}
+            setCost={data.setCost}
           />
           <Product
             name="CYPHER"
             cost={100}
             image="https://cdn1.dotesports.com/wp-content/uploads/2021/01/22161816/VALORANT_Cypher_Dark-scaled.jpg"
-            setNum={setNum}
-            setCost={setCost}
+            setNum={data.setNum}
+            setCost={data.setCost}
           />
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -151,15 +153,15 @@ const MainScreen: React.FC<MainScreenProps> = ({navigation}) => {
             name="OMEN"
             cost={150}
             image="https://cdn1.dotesports.com/wp-content/uploads/2021/01/22161358/VALORANT_Omen_Dark-scaled.jpg"
-            setNum={setNum}
-            setCost={setCost}
+            setNum={data.setNum}
+            setCost={data.setCost}
           />
           <Product
             name="NEON"
             cost={200}
             image="https://cdn.talkesport.com/wp-content/uploads/VALORA1.png"
-            setNum={setNum}
-            setCost={setCost}
+            setNum={data.setNum}
+            setCost={data.setCost}
           />
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -167,15 +169,15 @@ const MainScreen: React.FC<MainScreenProps> = ({navigation}) => {
             name="CHAMBER"
             cost={250}
             image="https://cdn1.dotesports.com/wp-content/uploads/2021/10/01040143/ezgif-3-ad7ee9114111.jpg"
-            setNum={setNum}
-            setCost={setCost}
+            setNum={data.setNum}
+            setCost={data.setCost}
           />
           <Product
             name="ASTRA"
             cost={300}
             image="https://cdn1.dotesports.com/wp-content/uploads/2021/02/26080227/Astra_Wallpapers_Blue1-scaled.jpg"
-            setNum={setNum}
-            setCost={setCost}
+            setNum={data.setNum}
+            setCost={data.setCost}
           />
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -183,15 +185,15 @@ const MainScreen: React.FC<MainScreenProps> = ({navigation}) => {
             name="VIPER"
             cost={350}
             image="https://cdn1.dotesports.com/wp-content/uploads/2021/03/11142935/VALORANT_Viper_Dark-scaled.jpg"
-            setNum={setNum}
-            setCost={setCost}
+            setNum={data.setNum}
+            setCost={data.setCost}
           />
           <Product
             name="BRIMSTONE"
             cost={400}
             image="https://staticg.sportskeeda.com/editor/2020/09/3bd84-16001841344420-800.jpg"
-            setNum={setNum}
-            setCost={setCost}
+            setNum={data.setNum}
+            setCost={data.setCost}
           />
         </View>
         <View style={{flexDirection: 'row'}}>
@@ -199,15 +201,15 @@ const MainScreen: React.FC<MainScreenProps> = ({navigation}) => {
             name="KAYO"
             cost={450}
             image="https://wallpapercave.com/wp/wp9452970.png"
-            setNum={setNum}
-            setCost={setCost}
+            setNum={data.setNum}
+            setCost={data.setCost}
           />
           <Product
             name="KILLJOY"
             cost={500}
             image="https://cdn1.dotesports.com/wp-content/uploads/2021/01/22161909/KillJoy_Wallpapers_blue2-scaled.jpg"
-            setNum={setNum}
-            setCost={setCost}
+            setNum={data.setNum}
+            setCost={data.setCost}
           />
         </View>
         <Pressable style={styles.mainButton} onPress={checkout}>
@@ -221,21 +223,31 @@ const MainScreen: React.FC<MainScreenProps> = ({navigation}) => {
 };
 
 const App: React.FC<{}> = () => {
+  const [num, setNum] = useState<number>(0);
+  const [cost, setCost] = useState<number>(0);
+  var obj = {
+    setNum: setNum,
+    setCost: setCost,
+    num: num,
+    cost: cost,
+  };
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="MAIN"
-          component={MainScreen}
-          options={{title: 'Product Screen', headerTitleAlign: 'center'}}
-        />
-        <Stack.Screen
-          name="MONEY"
-          component={Checkout}
-          options={{title: 'Checkout', headerTitleAlign: 'center'}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <UserContext.Provider value={obj}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="MAIN"
+            component={MainScreen}
+            options={{title: 'Product Screen', headerTitleAlign: 'center'}}
+          />
+          <Stack.Screen
+            name="MONEY"
+            component={Checkout}
+            options={{title: 'Checkout', headerTitleAlign: 'center'}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserContext.Provider>
   );
 };
 
