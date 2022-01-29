@@ -15,7 +15,15 @@ import {
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
-const UserContext = createContext({
+
+type CartContext = {
+  num: number;
+  cost: number;
+  setNum: (value: number) => void;
+  setCost: (value: number) => void;
+};
+
+const UserContext = createContext<CartContext>({
   num: 0,
   cost: 0,
   setNum: function () {},
