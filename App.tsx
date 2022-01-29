@@ -19,8 +19,8 @@ const Stack = createNativeStackNavigator();
 type CartContext = {
   num: number;
   cost: number;
-  setNum: (value: number) => void;
-  setCost: (value: number) => void;
+  setNum: React.Dispatch<React.SetStateAction<number>>;
+  setCost: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const UserContext = createContext<CartContext>({
