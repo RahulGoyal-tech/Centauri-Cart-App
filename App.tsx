@@ -13,21 +13,19 @@ import {
   ParamListBase,
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import FastImage from 'react-native-fast-image';
 
 const Stack = createNativeStackNavigator();
 
-type CartContext = {
-  num: number;
-  cost: number;
-  setNum: React.Dispatch<React.SetStateAction<number>>;
-  setCost: React.Dispatch<React.SetStateAction<number>>;
-};
-
-const UserContext = createContext<CartContext>({
+const UserContext = createContext({
   num: 0,
   cost: 0,
-  setNum: function () {},
-  setCost: function () {},
+  setNum: function (value: number) {
+    return;
+  },
+  setCost: function (value: number) {
+    return;
+  },
 });
 
 interface CheckoutProps {
@@ -98,7 +96,14 @@ const Product: React.FC<productProps> = ({
     <View style={styles.productBox}>
       <View style={styles.previewBox}>
         <View style={styles.imageBox}>
-          <Image style={styles.image} source={{uri: img}} />
+          <FastImage
+            style={styles.image}
+            source={{
+              uri: img,
+              priority: FastImage.priority.normal,
+              cache: FastImage.cacheControl.immutable,
+            }}
+          />
         </View>
         <Text style={styles.productTitle}>
           {name} ({count})
@@ -131,9 +136,9 @@ interface MainScreenProps {
 const MainScreen: React.FC<MainScreenProps> = ({navigation}) => {
   const data = useContext(UserContext);
   const num = data.num;
-  const cost = data.cost;
 
   const checkout = () => {
+    FastImage.clearMemoryCache;
     navigation.navigate('MONEY');
   };
 
